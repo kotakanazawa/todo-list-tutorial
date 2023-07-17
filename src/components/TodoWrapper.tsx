@@ -101,7 +101,6 @@ export const TodoWrapper = () => {
 
   return (
     <Container mt='5'>
-      <span id='rewardId' />
       <Heading mb='3'>Your Tasks</Heading>
       <TodoForm addTodo={addTodo} />
       {todos.map((todo) =>
