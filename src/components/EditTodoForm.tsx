@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, FormEvent, useState, useRef, useEffect } from "react"
+import { FC, ChangeEvent, FormEvent, useState, useRef, useEffect, KeyboardEvent } from "react"
 import type { Todo as TodoType } from "./TodoWrapper"
 import { Input, Button, Flex } from '@chakra-ui/react'
 
@@ -27,6 +27,13 @@ export const EditTodoForm: FC<Props> = ({ updateTodo, task }) => {
     setTitle("")
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.key !== "Enter") return
+
+    updateTodo(title, task.id)
+    setTitle("")
+  }
+
   return (
     <form onSubmit={handelSubmit}>
       <Flex>
@@ -39,6 +46,7 @@ export const EditTodoForm: FC<Props> = ({ updateTodo, task }) => {
           mb='5'
           fontSize='lg'
           ref={inputRef}
+          onKeyDown={handleKeyDown}
         />
         <Button type="submit">Update</Button>
       </Flex>

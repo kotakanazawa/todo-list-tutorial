@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, FormEvent, useState } from "react"
+import { FC, ChangeEvent, FormEvent, useState, KeyboardEvent } from "react"
 import { Input, Button, Flex } from '@chakra-ui/react'
 
 type Props = {
@@ -20,6 +20,13 @@ export const TodoForm: FC<Props> = ({ addTodo }) => {
     setTitle("")
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.key !== "Enter") return
+
+    addTodo(title)
+    setTitle("")
+  }
+
   return (
     <form onSubmit={handelSubmit}>
       <Flex>
@@ -30,6 +37,7 @@ export const TodoForm: FC<Props> = ({ addTodo }) => {
           onChange={(e) => handleChange(e)}
           mr='2'
           mb='5'
+          onKeyDown={handleKeyDown}
         />
         <Button colorScheme='green' type="submit">Add Task</Button>
       </Flex>
