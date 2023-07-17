@@ -75,6 +75,8 @@ export const TodoWrapper = () => {
   }
 
   const updateTodo = (newTitle: string, taskId: number) => {
+    if (!newTitle) return
+
     setTodos((prevTodos) => {
       const newTodos = prevTodos.map((prevTodo) => {
         if (prevTodo.id === taskId) {
