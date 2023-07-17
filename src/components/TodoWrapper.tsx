@@ -2,6 +2,7 @@ import { useState } from "react"
 import { TodoForm } from "./TodoForm"
 import { Todo } from "./Todo"
 import { EditTodoForm } from "./EditTodoForm"
+import { Container, Heading, useToast } from '@chakra-ui/react'
 
 export type Todo = {
   id: number
@@ -25,6 +26,8 @@ export const TodoWrapper = () => {
       isEditing: false
     }
   ])
+
+  const toast = useToast()
 
   const addTodo = (todoTitle: string) => {
     if (!todoTitle) return
@@ -55,6 +58,12 @@ export const TodoWrapper = () => {
 
   const deleteTodo = (taskId: number) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== taskId))
+
+    toast({
+      title: 'Task deleted',
+      status: 'success',
+      duration: 1500,
+    })
   }
 
   const editTodo = (taskId: number) => {
@@ -87,11 +96,17 @@ export const TodoWrapper = () => {
 
       return newTodos
     })
+
+    toast({
+      title: 'Task updated',
+      status: 'success',
+      duration: 1500
+    })
   }
 
   return (
-    <div>
-      <h1>Your Tasks</h1>
+    <Container mt='5'>
+      <Heading mb='3'>Your Tasks</Heading>
       <TodoForm addTodo={addTodo} />
       {todos.map((todo) =>
         todo.isEditing ? (
@@ -106,6 +121,6 @@ export const TodoWrapper = () => {
           />
         )
       )}
-    </div>
+    </Container>
   )
 }

@@ -1,5 +1,6 @@
 import { FC, ChangeEvent, FormEvent, useState } from "react"
 import type { Todo as TodoType } from "./TodoWrapper"
+import { Input, Button, Flex } from '@chakra-ui/react'
 
 type Props = {
   updateTodo: (title: string, id: number) => void
@@ -23,13 +24,18 @@ export const EditTodoForm: FC<Props> = ({ updateTodo, task }) => {
 
   return (
     <form onSubmit={handelSubmit}>
-      <input
-        type="text"
-        placeholder="update task"
-        value={title}
-        onChange={(e) => handleChange(e)}
-      />
-      <button type="submit">Update Task</button>
+      <Flex>
+        <Input
+          type="text"
+          placeholder="update task"
+          value={title}
+          onChange={(e) => handleChange(e)}
+          mr='2'
+          mb='5'
+          fontSize='lg'
+        />
+        <Button type="submit">Update</Button>
+      </Flex>
     </form>
   )
 }
