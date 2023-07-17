@@ -64,7 +64,7 @@ export const TodoWrapper = () => {
     setTodos((prevTodos) => {
       const newTodos = prevTodos.map((prevTodo) => {
         if (prevTodo.id === taskId) {
-          return { ...prevTodo, isEditing: !prevTodo.isEditing }
+          return { ...prevTodo, isEditing: true }
         }
 
         return prevTodo
