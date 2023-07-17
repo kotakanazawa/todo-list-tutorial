@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, FormEvent, useState } from "react"
+import { FC, ChangeEvent, FormEvent, useState, useRef, useEffect } from "react"
 import type { Todo as TodoType } from "./TodoWrapper"
 import { Input, Button, Flex } from '@chakra-ui/react'
 
@@ -9,6 +9,11 @@ type Props = {
 
 export const EditTodoForm: FC<Props> = ({ updateTodo, task }) => {
   const [title, setTitle] = useState(task.title)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value
@@ -33,6 +38,7 @@ export const EditTodoForm: FC<Props> = ({ updateTodo, task }) => {
           mr='2'
           mb='5'
           fontSize='lg'
+          ref={inputRef}
         />
         <Button type="submit">Update</Button>
       </Flex>
