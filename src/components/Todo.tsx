@@ -1,6 +1,6 @@
 import { FC } from "react"
 import type { Todo as TodoType } from "./TodoWrapper"
-import { Box, Button, ButtonGroup, Text, Flex, Spacer } from '@chakra-ui/react'
+import { Box, Button, ButtonGroup, Text, Flex, Spacer, Checkbox } from '@chakra-ui/react'
 
 type Props = {
   task: TodoType
@@ -18,13 +18,14 @@ export const Todo: FC<Props> = ({
   return (
     <Box mb='2'>
       <Flex alignItems='center'>
-        <Text
-          onClick={() => toggleComplete(task.id)}
-          fontSize='xl'
-          pl='1'
-        >
-          {task.title}
-        </Text>
+        <Checkbox isChecked={task.completed} onChange={() => toggleComplete(task.id)}>
+          <Text
+            fontSize='xl'
+            textDecoration={task.completed ? 'line-through' : 'none'}
+          >
+            {task.title}
+          </Text>
+        </Checkbox>
         <Spacer />
         <ButtonGroup>
           <Button onClick={() => editTodo(task.id)}>Edit</Button>
