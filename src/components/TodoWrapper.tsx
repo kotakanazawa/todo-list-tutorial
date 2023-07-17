@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { TodoForm } from "./TodoForm"
 import { Todo } from "./Todo"
 import { EditTodoForm } from "./EditTodoForm"
@@ -12,20 +12,13 @@ export type Todo = {
 }
 
 export const TodoWrapper = () => {
-  const [todos, setTodos] = useState<Todo[]>([
-    {
-      id: 1,
-      title: "hoge",
-      completed: false,
-      isEditing: false
-    },
-    {
-      id: 2,
-      title: "foo",
-      completed: false,
-      isEditing: false
-    }
-  ])
+  const storedTodos: string | null = localStorage.getItem('todos')
+  const initialTodos = storedTodos ? JSON.parse(storedTodos) as Todo[] : []
+  const [todos, setTodos] = useState<Todo[]>(initialTodos)
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
   const toast = useToast()
 
@@ -80,10 +73,10 @@ export const TodoWrapper = () => {
     })
   }
 
-  const updateTodo = (newTitle: string, id: number) => {
+  const updateTodo = (newTitle: string, taskId: number) => {
     setTodos((prevTodos) => {
       const newTodos = prevTodos.map((prevTodo) => {
-        if (prevTodo.id === id) {
+        if (prevTodo.id === taskId) {
           return {
             ...prevTodo,
             title: newTitle,
