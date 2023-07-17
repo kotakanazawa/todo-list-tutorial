@@ -54,8 +54,9 @@ export const TodoWrapper = () => {
 
     toast({
       title: 'Task deleted',
-      status: 'success',
+      status: 'info',
       duration: 1500,
+      position: 'top-right'
     })
   }
 
@@ -93,12 +94,14 @@ export const TodoWrapper = () => {
     toast({
       title: 'Task updated',
       status: 'success',
-      duration: 1500
+      duration: 1500,
+      position: 'top-right'
     })
   }
 
   return (
     <Container mt='5'>
+      <span id='rewardId' />
       <Heading mb='3'>Your Tasks</Heading>
       <TodoForm addTodo={addTodo} />
       {todos.map((todo) =>
